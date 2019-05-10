@@ -3,24 +3,8 @@ API for Shopee Calculate Tax
 
 [![Code Style](https://img.shields.io/badge/taxCode%20style-standard-green.svg)](https://github.com/feross/standard)
 
-[API Documentation](#api-documentation) |
-[Database Design](#database-design) |
 [Deployment Setup](#deployment-setup) |
 [License](#license)
-
-
-## API Documentation
-API Documentation by Swagger inside in project
-[https://localhost:8084/swagger-ui.html](https://localhost:8084/swagger-ui.html)
-
-## Database Design
-
-<p>
-  <img src="https://raw.github.com/gratcy/tax-calc/dev/diagram_db.png" width="600">
-  <blockquote>
-  Diagram Database Design
-  </blockquote>
-</p>
 
 ## Deployment Setup
 Follow below instructions.
