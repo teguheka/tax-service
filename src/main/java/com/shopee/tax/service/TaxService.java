@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaxService {
@@ -105,5 +106,19 @@ public class TaxService {
                 refundable = Boolean.TRUE;
         }
         return refundable;
+    }
+
+    /**
+     * delete all tax db in db
+     */
+    public void deleteAllData() {
+        taxRepository.deleteAll();
+    }
+
+    /**
+     * fetch the data by name
+     */
+    public Optional<Tax> findByName(String name) {
+        return taxRepository.findByName(name);
     }
 }
