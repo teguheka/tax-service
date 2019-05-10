@@ -3,11 +3,10 @@ package com.shopee.tax.service;
 import com.shopee.tax.entity.Tax;
 import com.shopee.tax.repository.TaxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,27 +20,28 @@ public class TaxService {
         return taxRepository.save(tax);
     }
 
-    public Page<Tax> list(Integer page, Integer limit){
-        Page<Tax> orders = taxRepository.findAll(PageRequest.of(page, limit));
-        for(Tax order : orders.getContent()){
+    public List<Tax> list(){
+        List<Tax> taxes = new ArrayList<>();
+        taxRepository.findAll().forEach(taxes::add);
 
+        for(Tax t : taxes){
             //set type 1 = food, 2 = tobacco, 3 = entertainment
-            String type = categories[order.getTaxCode() - 1];
-            order.setType(type);
+            String type = categories[t.getTaxCode() - 1];
+            t.setType(type);
 
             //calculate and set tax
-            BigDecimal tax = calculateTax(order.getPrice(), order.getTaxCode());
-            order.setTax(tax);
+            BigDecimal tax = calculateTax(t.getPrice(), t.getTaxCode());
+            t.setTax(tax);
 
             //set refundable
-            Boolean refundable = isRefundable(order.getTaxCode());
-            order.setRefundable(refundable ? "Yes": "No");
+            Boolean refundable = isRefundable(t.getTaxCode());
+            t.setRefundable(refundable ? "Yes": "No");
 
             //calculate total amount (tax + price)
-            BigDecimal amount = order.getPrice().add(tax);
-            order.setAmount(amount);
+            BigDecimal amount = t.getPrice().add(tax);
+            t.setAmount(amount);
         }
-        return orders;
+        return taxes;
     }
 
     public BigDecimal getSubTotalPrice(List<Tax> taxes) {
@@ -54,34 +54,6 @@ public class TaxService {
 
     public BigDecimal getSubTotalAmount(List<Tax> taxes) {
         return taxes.stream().map(Tax::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    /**
-     * count tax
-     * @param price
-     * @param taxCode
-     * @return
-     */
-    public double calculateTax(double price, Integer taxCode) {
-        double tax;
-        switch (taxCode) {
-            case 1: // food and beverage has rules 10% of Price
-                tax = price * 0.1;
-                break;
-            case 2: // tobacco has rules 10 + (2% of Price)
-                tax = 10 + (price * 0.02);
-                break;
-            case 3: // entertainment has rules : 0 < Price < 100: tax-free | Price >= 100: 1% of ( Price - 100)
-                if (price >= 100) {
-                    tax = 0.01 * (price - 100);
-                } else {
-                    tax = 0d;
-                }
-                break;
-            default:
-                tax = 0d;
-        }
-        return tax;
     }
 
     /**

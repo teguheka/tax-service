@@ -28,11 +28,9 @@ public class TaxApplication implements CommandLineRunner {
 		Tax tax1 = new Tax("Lucky Stretch", 2, new BigDecimal(1000));
 		Tax tax2 = new Tax("Big Mac", 1, new BigDecimal(1000));
 		Tax tax3 = new Tax("Movie", 3, new BigDecimal(1000));
-		Tax tax4 = new Tax("Lucky Stretch", 2, new BigDecimal(1000));
 
 		taxRepository.save(tax1);
 		taxRepository.save(tax2);
 		taxRepository.save(tax3);
-		taxRepository.save(tax4);
 	}
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Demo</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+<body>
+
+<a th:href="@{'/'}">Back to list</a>
+
+<div class="span4">
+    <h2>Create Tax Object</h2>
+    <form action="save" method="post">
+        <label>Name</label>
+        <input type="text" name="name" class="span4" placeholder="Object name">
+        <label>Tax Code</label>
+        <input type="text" name="taxCode" class="span4" placeholder="Tax Code, opt: 1=food | 2=tobacco | 3=entertainment">
+        <label>Price</label>
+        <input type="text" name="price" class="span4" placeholder="Price of object">
+        <input type="submit" value="Save" class="btn btn-primary pull-right">
+        <div class="clearfix"></div>
+    </form>
+</div>
+
+</body>
+</html>

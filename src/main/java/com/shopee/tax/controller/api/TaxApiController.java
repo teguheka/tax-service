@@ -3,10 +3,10 @@ package com.shopee.tax.controller.api;
 import com.shopee.tax.entity.Tax;
 import com.shopee.tax.service.TaxService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,8 +17,6 @@ public class TaxApiController {
 
     /**
      * creating tax
-     * @param tax
-     * @return
      */
     @PostMapping("")
     public Tax create(@RequestBody Tax tax) {
@@ -27,19 +25,16 @@ public class TaxApiController {
 
     /**
      *  Get list of tax
-     * @param pageNumber
-     * @param limit
-     * @return
      */
     @GetMapping("")
-    public Map list(@RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "5") Integer limit) {
-        Page<Tax> orderPage = taxService.list(pageNumber - 1, limit);
+    public Map list() {
+        List<Tax> taxes = taxService.list();
 
         Map<String, Object> response = new HashMap<>();
-        response.put("data", orderPage.getContent());
-        response.put("sub_total_price", taxService.getSubTotalPrice(orderPage.getContent()));
-        response.put("sub_total_tax", taxService.getSubTotalTax(orderPage.getContent()));
-        response.put("sub_total_amount", taxService.getSubTotalAmount(orderPage.getContent()));
+        response.put("data", taxes);
+        response.put("sub_total_price", taxService.getSubTotalPrice(taxes));
+        response.put("sub_total_tax", taxService.getSubTotalTax(taxes));
+        response.put("sub_total_amount", taxService.getSubTotalAmount(taxes));
         return response;
     }
 }
