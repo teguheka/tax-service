@@ -1,8 +1,6 @@
 # Tax Calculator
 API for Shopee Calculate Tax
 
-[![Code Style](https://img.shields.io/badge/taxCode%20style-standard-green.svg)](https://github.com/feross/standard)
-
 [Deployment Setup](#deployment-setup) |
 [License](#license)
 
@@ -18,7 +16,8 @@ Follow below instructions.
     $ cd tax-service
     $ docker-compose up
 ```
-- Check in browser http://localhost:8084
+- Check in browser http://localhost:8084 (note: new data will be deleted if you deleted the container)
+- Or check http://localhost:8084/api/v1/taxes for REST API
 
 ##### Using Manual
 - Java
@@ -45,3 +44,9 @@ Follow below instructions.
 - `docker container rm <container_name>` Delete container
 - `docker image rm <image_name>` Delete image
 - `docker-compose down` Stop and delete app container
+
+### Maven cheat sheet
+- `mvn -Dmaven.test.skip=true package` Create package without test
+- `mvn spring-boot:run` Running Spring Boot
+
+
