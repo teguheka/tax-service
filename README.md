@@ -1,5 +1,5 @@
 # Tax Calculator
-API for Shopee Calculate Tax
+API for Copiii Calculate Tax
 
 [Deployment Setup](#deployment-setup) |
 [License](#license)
